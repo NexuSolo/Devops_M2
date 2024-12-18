@@ -1,0 +1,37 @@
+services:
+  front:
+    build:
+      context: ./App/front
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"
+    networks:
+      - mynetwork
+
+  back:
+    build:
+      context: ./App/back
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    depends_on:
+      - bdd
+    networks:
+      - mynetwork
+
+  bdd:
+    build:
+      context: ./App/bdd
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: mydatabase
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

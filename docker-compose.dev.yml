@@ -1,0 +1,43 @@
+services:
+  front:
+    build:
+      context: ./App/front
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./App/front:/app
+    networks:
+      - mynetwork
+
+  back:
+    build:
+      context: ./App/back
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./App/back:/app
+    depends_on:
+      - bdd
+    networks:
+      - mynetwork
+
+  bdd:
+    build:
+      context: ./App/bdd
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./App/bdd/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: mydatabase
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
