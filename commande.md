@@ -9,10 +9,15 @@ Docker front:
         - docker run -d -p 80:80 angular
 
 Docker back:
-    -build:
-        -docker build -f App/back/Dockerfile.dev -t node-back App/back
-    -run:
-        -docker run -it --rm -p 3000:3000 -v $(pwd)/App/back:/app node-back
+    -build dev:
+        -docker build -f App/back/Dockerfile.dev -t node-back-dev App/back
+    -run dev:
+        -docker run -it --rm -p 3000:3000 -v $(pwd)/App/back:/app node-back-dev
+
+    -build prod:
+        -docker build -f App/back/Dockerfile.prod -t node-back App/back
+    -run prod:
+        -docker run -d -p 3000:3000 node-back
 
 Docker bdd:
     -build:

@@ -2,17 +2,12 @@ FROM node:23-alpine
 
 WORKDIR /app
 
-# Copier uniquement les fichiers nécessaires pour l'installation des dépendances
-COPY package*.json ./
+COPY App/package*.json ./
 
-# Installer les dépendances de production uniquement
 RUN npm install --only=production
 
-# Copier le reste des fichiers de l'application
-COPY . .
+COPY ./App .
 
-# Exposer le port sur lequel l'application va tourner
 EXPOSE 3000
 
-# Commande pour démarrer l'application
 CMD ["node", "index.js"]
