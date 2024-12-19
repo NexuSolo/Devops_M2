@@ -1,9 +1,9 @@
 # Étape de construction
-FROM node:23-alpine as builder
+FROM node:23-alpine AS builder
 WORKDIR /app
 
 # Installer les dépendances
-COPY App/package.json App/package-lock.json ./
+COPY App/package*.json  ./
 RUN npm install
 
 # Copier le code source de l'application

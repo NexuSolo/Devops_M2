@@ -1,0 +1,8 @@
+terraform.tfvars
+.terraform
+terraform_state/*
+!terraform_state/.gitkeep
+.terraform.lock.hcl
+terraform_output.json
+.azure
+kubeconfig.yaml
