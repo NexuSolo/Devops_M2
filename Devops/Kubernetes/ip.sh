@@ -2,6 +2,8 @@
 
 # Fonction pour vérifier les adresses IP externes des services
 check_ips() {
+  export KUBECONFIG=/workspace/kubeconfig.yaml
+  
   front_ip=$(kubectl get service front-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
   back_ip=$(kubectl get service back-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 

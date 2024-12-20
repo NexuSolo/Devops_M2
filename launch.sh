@@ -22,11 +22,11 @@ docker container run -it --rm -v $(pwd)/Devops/Terraform:/workspace -v $(pwd)/De
 docker build -t kubectl-deployer Devops/Kubernetes/
 
 # Déployer les fichiers de déploiement Kubernetes
-docker container run -it --rm -v $(pwd)/Devops/Kubernetes:/workspace -v $(pwd)/Devops/Terraform/.azure:/root/.azure -w /workspace kubectl-deployer sh /usr/local/bin/start.sh
+docker container run -it --rm -v $(pwd)/Devops/Kubernetes:/workspace -v $(pwd)/Devops/Terraform/.azure:/root/.azure -w /workspace kubectl-deployer /usr/local/bin/start.sh
 
 # Vérifier les adresses IP des services
 while true; do
-  docker container run -it --rm -v $(pwd)/Devops/Kubernetes:/workspace -v $(pwd)/Devops/Terraform/.azure:/root/.azure -w /workspace kubectl-deployer sh /usr/local/bin/ip.sh
+  docker container run -it --rm -v $(pwd)/Devops/Kubernetes:/workspace -v $(pwd)/Devops/Terraform/.azure:/root/.azure -w /workspace kubectl-deployer /usr/local/bin/ip.sh
   if [ $? -eq 0 ]; then
     break
   fi
